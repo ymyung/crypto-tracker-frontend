@@ -12,7 +12,7 @@ const WalletPrices = ({ myCoins, coins }) => {
                     <div className="wallet-prices-value">${ (coin.amount * coins.find(item => item.id === coin.name).current_price).toLocaleString() }</div>
                     <div className="wallet-prices-overlay">
                         <button className='edit'>edit</button>
-                        <button className='delete'>delete</button>
+                        <button className='delete'>delete</button> 
                     </div>
                 </div>
             ))}
