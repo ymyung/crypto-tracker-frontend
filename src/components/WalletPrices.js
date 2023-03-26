@@ -20,4 +20,4 @@ const WalletPrices = ({ myCoins, coins }) => {
     )
 }
 
-export default WalletPrices
+export default WalletPrices 
