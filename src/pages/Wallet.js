@@ -14,6 +14,13 @@ const Wallet = () => {
     const [selectedCoin, setSelectedCoin] = useState(undefined)
     const [countAmount, setCoinAmount] = useState(undefined)
 
+    // modal
+    const [modal, setModal] = useState('modal')
+    const [editModal, setEditModal] = useState('edit-modal')
+    const [deleteModal, setDeleteModal] = useState('delete-modal')
+    const [editAmount, setEditAmount] = useState(0)
+    const [currentCoinId, setCurrentCoinId] = useState('')
+
     // get coins on render
     useEffect(() => {
         const getCoins = async () => {
@@ -77,6 +84,42 @@ const Wallet = () => {
         setCoinAmount(undefined)
     }
 
+    // handle edit modal
+    const openEdit = (coin) => {
+        setModal('modal modal-open')
+        setEditModal('edit-modal edit-modal-open')
+        setEditAmount(coin.amount)
+        setCurrentCoinId(coin._id)
+    }
+
+    // handle delete modal 
+    const openDelete = () => {
+        setModal('modal modal-open')
+        setDeleteModal('delete-modal delete-modal-open')
+    }
+
+    // close modal
+    const closeModal = () => {
+        setModal('modal')
+        setEditModal('edit-modal')
+        setDeleteModal('delete-modal')
+    }
+
+    // handle edit 
+    const handleEdit = () => {
+        const patchRequest = async () => {
+            try {
+                const response = await fetch(`http://localhost/wallet/${currentCoinId}`)
+            } catch (error) {
+                throw error
+            }
+        }
+
+        patchRequest()
+
+        setEditModal('edit-modal')
+    }
+
     return (
         <div className='wallet'>
             <form className="add-coin" onSubmit={(e) => handleAddCoin(e)}>
@@ -95,7 +138,27 @@ const Wallet = () => {
                     <div className='wallet-top-middle'>amount</div>
                     <div className='wallet-top-right'>value</div>
                 </div>
-                <WalletPrices myCoins={myCoins} coins={coins} />
+                <WalletPrices myCoins={myCoins} coins={coins} openEdit={openEdit} openDelete={openDelete} />
+            </div>
+            <div className="modal-container">
+                <div className={modal} onClick={closeModal}></div>
+                <form className={editModal}>
+                    <div className="edit-container" onSubmit={handleEdit}>
+                        <div>Amount:</div>
+                        <input type="text" placeholder={editAmount} required />
+                    </div>
+                    <div className="button-containers">
+                        <button onClick={closeModal}>Discard</button>
+                        <button className='edit'>Save Changes</button>
+                    </div>
+                </form>
+                <form className={deleteModal}>
+                    <div className='delete-modal-title'>Delete Coins?</div>
+                    <div className="button-containers">
+                        <button onClick={closeModal}>No</button>
+                        <button className='delete'>Delete</button>
+                    </div>
+                </form>
             </div>
         </div>
     )

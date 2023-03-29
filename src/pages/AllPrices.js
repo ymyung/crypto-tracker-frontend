@@ -28,6 +28,7 @@ const AllPrices = () => {
 
         getCoins()
     }, [])
+    console.log(coins)
 
     return (
         <div className='all-prices'>

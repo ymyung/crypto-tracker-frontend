@@ -5,7 +5,7 @@ import './CoinPrices.scss'
 const CoinPrices = ({ coins }) => {
   return (
     <div className='coin-prices-container'>
-        {coins && coins.map((coin, i) => (
+        {coins.length !== 0 ? coins.map((coin, i) => (
             <div className="coin-container" key={i}>
                 <div className="coin-left-container">
                     <img src={coin.image} alt={coin.name} className="coin-image" />
@@ -20,7 +20,7 @@ const CoinPrices = ({ coins }) => {
                     })}</div>
                 </div>
             </div>
-        ))}
+        )) : <div>Please wait 1 minute for crypto api</div>}
     </div>
   )
 }
