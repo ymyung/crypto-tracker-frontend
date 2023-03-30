@@ -138,7 +138,7 @@ const Wallet = () => {
                     <div className='wallet-top-middle'>amount</div>
                     <div className='wallet-top-right'>value</div>
                 </div>
-                <WalletPrices myCoins={myCoins} coins={coins} openEdit={openEdit} openDelete={openDelete} />
+                <WalletPrices myCoins={myCoins} coins={coins} openEdit={openEdit} openDelete={openDelete} /> 
             </div>
             <div className="modal-container">
                 <div className={modal} onClick={closeModal}></div>
