@@ -20,6 +20,7 @@ const Wallet = () => {
     const [deleteModal, setDeleteModal] = useState('delete-modal')
     const [editAmount, setEditAmount] = useState(0)
     const [currentCoinId, setCurrentCoinId] = useState('')
+    const [patchDelete, setPatchDelete] = useState({})
 
     // get coins on render
     useEffect(() => {
@@ -42,7 +43,7 @@ const Wallet = () => {
         }
 
         getCoins()
-    }, [])
+    }, [patchDelete])
 
     // get coin info from selectedId
     useEffect(() => {
@@ -105,11 +106,24 @@ const Wallet = () => {
         setDeleteModal('delete-modal')
     }
 
-    // handle edit 
-    const handleEdit = () => {
+    // handle edit submit
+    const handleEditCoin = (e) => {
+        e.preventDefault()
+
         const patchRequest = async () => {
+            const responseBody = {}
+            responseBody.amount = editAmount
+
             try {
-                const response = await fetch(`http://localhost/wallet/${currentCoinId}`)
+                const response = await fetch(`http://localhost:4000/wallet/${currentCoinId}`, {
+                    method: 'PATCH',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(responseBody)
+                })
+
+                const data = await response.json()
+
+                setPatchDelete(data)
             } catch (error) {
                 throw error
             }
@@ -117,7 +131,33 @@ const Wallet = () => {
 
         patchRequest()
 
+        setModal('modal')
         setEditModal('edit-modal')
+        setDeleteModal('delete-modal')
+    }
+
+    const handleDeleteCoin = (e) => {
+        e.preventDefault()
+
+        const handleDelete = async () => {
+            try {
+                const response = await fetch(`http://localhost:4000/wallet/${currentCoinId}`, {
+                    method: 'DELETE'
+                })
+
+                const data = await response.json()
+
+                setPatchDelete(data)
+            } catch(error) {
+                throw error
+            }
+        }
+
+        handleDelete()
+
+        setModal('modal')
+        setEditModal('edit-modal')
+        setDeleteModal('delete-modal')
     }
 
     return (
@@ -142,17 +182,17 @@ const Wallet = () => {
             </div>
             <div className="modal-container">
                 <div className={modal} onClick={closeModal}></div>
-                <form className={editModal}>
-                    <div className="edit-container" onSubmit={handleEdit}>
+                <form className={editModal} onSubmit={(e) => handleEditCoin(e)}>
+                    <div className="edit-container">
                         <div>Amount:</div>
-                        <input type="text" placeholder={editAmount} required />
+                        <input type="text" required onChange={(e) => setEditAmount(e.target.value)} value={editAmount} />
                     </div>
                     <div className="button-containers">
                         <button onClick={closeModal}>Discard</button>
                         <button className='edit'>Save Changes</button>
                     </div>
                 </form>
-                <form className={deleteModal}>
+                <form className={deleteModal} onSubmit={(e) => handleDeleteCoin(e)}>
                     <div className='delete-modal-title'>Delete Coins?</div>
                     <div className="button-containers">
                         <button onClick={closeModal}>No</button>
