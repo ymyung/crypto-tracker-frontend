@@ -158,7 +158,7 @@ const Wallet = () => {
         setModal('modal')
         setEditModal('edit-modal')
         setDeleteModal('delete-modal')
-    }
+    } 
 
     return (
         <div className='wallet'>
