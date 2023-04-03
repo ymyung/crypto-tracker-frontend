@@ -1,0 +1,63 @@
+.wallet-prices-container {
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.wallet-prices-container .wallet-prices-subcontainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: 3px solid var(--secondary);
+  border-top: none;
+  position: relative;
+}
+.wallet-prices-container .wallet-prices-subcontainer .wallet-prices-coin {
+  width: 2rem;
+  padding: 0.25rem;
+}
+.wallet-prices-container .wallet-prices-subcontainer .wallet-prices-amount {
+  flex: 50%;
+  border-left: 2px solid var(--secondary);
+  border-right: 2px solid var(--secondary);
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  padding: 0.25rem;
+}
+.wallet-prices-container .wallet-prices-subcontainer .wallet-prices-value {
+  flex: 50%;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  padding: 0.25rem;
+}
+.wallet-prices-container .wallet-prices-subcontainer .wallet-prices-overlay {
+  background-color: wheat;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.wallet-prices-container .wallet-prices-subcontainer .wallet-prices-overlay button {
+  width: 6rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.wallet-prices-container .wallet-prices-subcontainer .wallet-prices-overlay .edit {
+  background-color: var(--primary);
+}
+.wallet-prices-container .wallet-prices-subcontainer .wallet-prices-overlay .delete {
+  background-color: red;
+}
+.wallet-prices-container .wallet-prices-subcontainer:hover .wallet-prices-overlay {
+  opacity: 1;
+  transition: 0.25s;
+}/*# sourceMappingURL=WalletPrices.css.map */
